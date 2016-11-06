@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+
+        <img src="/{{ config.imgpath }}/full/img{{ image.id }}.png" class="img-responsive center-block">
+        <hr/>
+        {% if owner == user.id %}
+            <form action="/ad/image/replace/{{ image.id }}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                                <span class="fileinput-new">Select file</span>
+                                <span class="fileinput-exists">Change</span>
+                                    <input type="file" name="image">
+                                </span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Ersetzen</button>
+                <div class="text-right pull-right">
+                    <a class="btn btn-danger" href="/ad/image/delete/{{ image.id }}" role="button">Löschen</a>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+</div>

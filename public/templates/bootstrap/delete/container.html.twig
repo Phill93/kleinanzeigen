@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>Möchtest du deinen Account löschen?</h3>
+        <form action="/user/delete/{{ user.id }}" class="form-horizontal" method="post">
+            <div class="checkbox">
+                <label for="accept">
+                    <input type="checkbox" name="accept" id="accept" value="true"> Ja, ich möchte meinen Account löschen!
+                </label>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Absenden</button>
+        </form>
+    </div>
+</div>

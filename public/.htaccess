@@ -1,0 +1,8 @@
+RewriteEngine on
+                                                                                          RewriteBase /
+                                                                                          RewriteRule ^(vendor|templates|image|test)($|/) - [L]
+                                                                                          RewriteRule ^index.php.*$ - [L]
+                                                                                          RewriteRule ^([^/]*)/?$ index.php?site=$1
+                                                                                          RewriteRule ^([^/]*)/([^/]*)$ index.php?site=$1&subsite=$2
+                                                                                          RewriteRule ^([^/]*)/([^/]*)/([^/]*)$ index.php?site=$1&subsite=$2&opt1=$3
+                                                                                          RewriteRule ^([^/]*)/([^/]*)/([^/]*)/([^/]*)$ index.php?site=$1&subsite=$2&opt1=$3&opt2=$4

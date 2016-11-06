@@ -1,0 +1,13 @@
+<body>
+{{ include("navbar.html.twig") }}
+<div class="container">
+    {{ include("error/container.html.twig") }}
+    {% if site %}
+    {{ include(site ~ "/container.html.twig") }}
+    {% else %}
+    {{ include("ad/container.html.twig") }}
+    {% endif %}
+</div>
+
+{{ include("js.html.twig") }}
+</body>

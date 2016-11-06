@@ -1,0 +1,20 @@
+{
+  "name": "vendor_name/package_name",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "GPLv3",
+  "authors": [
+    {
+      "name": "Phill93",
+      "email": "mail@phill93.de"
+    }
+  ],
+  "require": {
+    "twig/twig": "~1.0",
+    "twbs/bootstrap": "3.3.x-dev",
+    "components/jquery": "1.12.4"
+  },
+  "autoload": {
+    "classmap": ["inc/"]
+  }
+}

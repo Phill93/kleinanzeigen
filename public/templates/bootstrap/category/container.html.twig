@@ -1,0 +1,14 @@
+<nav>
+    <ul class="nav nav-justified">
+        {% for category in categories %}
+            {% if category.id == activecategory %}
+                <li class="active"><a href="/ad/category/{{ category.id }}">{{ category.name }}</a></li>
+            {% else %}
+                <li><a href="/ad/category/{{ category.id }}">{{ category.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+<br />
+{% include("ad/container.html.twig") %}
+

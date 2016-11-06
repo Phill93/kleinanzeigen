@@ -1,0 +1,42 @@
+{% for ad in ads %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <ol class="breadcrumb panel-title">
+                <li>{{ attribute(categories, ad.category).name }}</li>
+                <li class="active"><a class="breadcrumb-item active"
+                                      href="/ad/view/{{ ad.id }}">{{ ad.title }}</a></li>
+                <span class="text-right pull-right panel-shadow">#{{ ad.id }}</span>
+            </ol>
+        </div>
+        <div class="panel-body">
+            <b>Die Preisvorstellung von {{ ad.user.name }} {{ ad.user.surname | first }}
+                beträgt </b> {{ ad.price|number_format(2, ',', '.') }} €
+            <br/>
+            {{ ad.content|striptags('<br>')|raw }}
+            <hr/>
+            {% if ad.images is not empty %}
+                <div class="row text-center in-panel">
+                    <div class="row">
+                        {% for image in ad.images %}
+                            <div class="col-md-4">
+                                <a href="/ad/image/view/{{ image.id }}" class="thumbnail">
+                                    <img src="/{{ config.imgpath }}/thumb/img{{ image.id }}.png" style="width: {{ config.THUMBNAIL_WIDTH }}px;">
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            {% endif %}
+        </div>
+        <div class="panel-footer">
+            Erstellt von <a href="mailto:{{ ad.user.mail }}">{{ ad.user.name }} {{ ad.user.surname |first }}. ({{ ad.user.id }}) </a>
+        </div>
+    </div>
+    {% if single and user.id == ad.user.id %}
+        <div class="text-right pull-right">
+            <a class="btn btn-danger" href="/ad/delete/{{ ad.id }}" role="button">Löschen</a>
+            <a class="btn btn-primary" href="/ad/modify/{{ ad.id }}" role="button">Bearbeiten</a>
+        </div>
+    {% endif %}
+{% endfor %}

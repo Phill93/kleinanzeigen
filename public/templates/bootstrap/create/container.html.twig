@@ -1,0 +1,147 @@
+{% if create %}
+<h3>Neue Anzeige</h3>
+<form action="/ad/add" enctype="multipart/form-data" class="form-horizontal" method="post">
+    <input type="hidden" name="create" value="true">
+    {% elseif update %}
+    <h3>Anzeige bearbeiten</h3>
+    <form action="/ad/modify/{{ prefill.id }}" enctype="multipart/form-data" class="form-horizontal" method="post">
+        <input type="hidden" name="update" value="true">
+        {% endif %}
+        <input type="hidden" name="MAX_FILE_SIZE" value="{{ config.max_upload_size }}"/>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="user" class="col-sm-2 control-label">Ersteller</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="user" name="user"
+                               value="{{ user.name }} {{ user.surname }} ({{ user.id }})" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="col-sm-2 control-label">Titel</label>
+                    <div class="col-sm-10">
+                        {% if create %}
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Titel">
+                        {% elseif update %}
+                            <input type="text" class="form-control" id="title" name="title" value="{{ prefill.title }}">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category" class="col-sm-2 control-label">Kategorie</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="category" name="category">
+                            {% for category in categories %}
+                                {% if category.id == prefill.category %}
+                                    <option value="{{ category.id }}" selected>{{ category.name }}</option>
+                                {% else %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="col-sm-2 control-label">Preisvorstellung</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            {% if create %}
+                                <input type="text" class="form-control" id="price" name="price" placeholder="Preisvorstellung" pattern="[0-9.,]$">
+                            {% elseif update %}
+                                <input type="text" class="form-control" id="price" name="price" value="{{ prefill.price }}">
+                            {% endif %}
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="content" class="col-sm-2 control-label">Inhalt</label>
+                    <div class="col-sm-10">
+                        {% if create %}
+                            <textarea class="form-control" id="content" name="content" placeholder="Inhalt" rows="10"></textarea>
+                        {% elseif update %}
+                            <textarea class="form-control" id="content" name="content" placeholder="Inhalt" rows="10">{{ prefill.content|striptags() }}</textarea>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if prefill.images|length < 3 or create %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    {% if prefill.images|length < 3 or create %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Bild 1</label>
+                        <div class="col-sm-10">
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="image_1">
+                        </span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if prefill.images|length < 2 or create %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Bild 2</label>
+                        <div class="col-sm-10">
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="image_2">
+                        </span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if prefill.images|length < 1 or create %}
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Bild 3</label>
+                        <div class="col-sm-10">
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput">
+                                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                    <span class="fileinput-filename"></span>
+                                </div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" name="image_3">
+                        </span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="col-sm-offset-10">
+            <button type="reset" class="btn btn-danger">Reset</button>
+            <button type="submit" class="btn btn-primary">
+                {% if create %}
+                    Absenden
+                {% elseif update %}
+                    Update
+                {% endif %}
+            </button>
+        </div>
+    </form>
