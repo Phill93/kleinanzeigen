@@ -1,6 +1,6 @@
 #Project Kleinanzeigen
 
-**Goal:** Create a Page like [kijiji](www.kijiji.de)
+**Goal:** Create a Page like [kijiji](http://www.kijiji.com)
 
 **Uses:**
 * [Bootstrap](http://getbootstrap.com/) (MIT License)
