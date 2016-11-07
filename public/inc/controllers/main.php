@@ -71,6 +71,10 @@ class main
                             if ($post['create'] == true) {
                                 $this->createad($post, $this->getUser($_SESSION['user_id']));
                                 view_html::addMsg("success", MSG_AD_CREATE_SUCCESS);
+                                $this->view->addData('redirect', array(
+                                    'time' => REDIRECT_WAIT_TIME,
+                                    'target' => "/ad/list/",
+                                ));
                                 break;
                             }
                             $this->view->addData('site', 'create');
@@ -88,6 +92,10 @@ class main
                                 if ($post['update'] == true) {
                                     if ($this->modifyad($ad['id'], $post['title'], $post['category'], $post['price'], $post['content'], $_SESSION['user_id'])) {
                                         view_html::addMsg("success", MSG_AD_MODIFY_SUCCESS);
+                                        $this->view->addData('redirect', array(
+                                            'time' => REDIRECT_WAIT_TIME,
+                                            'target' => "/ad/view/" . $ad['id'],
+                                        ));
                                         break;
                                     } else {
                                         view_html::addMsg("danger", MSG_AD_MODIFY_FAIL);
@@ -97,10 +105,11 @@ class main
                                 }
                                 $this->view->addData('site', 'create');
                                 $this->view->addData('prefill', $ad);
-                                break;
                             } else {
                                 view_html::addMsg("danger", MSG_AD_VIEW_NOT_FOUND);
+                                break;
                             }
+
                         } else {
                             view_html::addMsg("danger", MSG_AD_MODIFY_UNATHORIZED);
                             break;
@@ -109,8 +118,16 @@ class main
                     case "delete":
                         if ($this->deletead($get['opt1'])) {
                             view_html::addMsg('success', MSG_SUCCESFULL_DELETE);
+                            $this->view->addData('redirect', array(
+                                'time' => REDIRECT_WAIT_TIME,
+                                'target' => "/ad/list/",
+                            ));
                         } else {
                             view_html::addMsg('danger', MSG_FAILD_DELETE);
+                            $this->view->addData('redirect', array(
+                                'time' => REDIRECT_WAIT_TIME,
+                                'target' => "/ad/view/" . $get['opt1'],
+                            ));
                         }
                         break;
                     case "search":
@@ -134,8 +151,16 @@ class main
                                 if ($ad['user']['id'] == $_SESSION['user_id']) {
                                     $image_o->deleteImage($image['id']);
                                     view_html::addMsg('success', MSG_IMG_DELETE_SUCCESS);
+                                    $this->view->addData('redirect', array(
+                                        'time' => REDIRECT_WAIT_TIME,
+                                        'target' => "/ad/list/",
+                                    ));
                                 } else {
                                     view_html::addMsg('danger', MSG_IMG_DELETE_FAIL);
+                                    $this->view->addData('redirect', array(
+                                        'time' => REDIRECT_WAIT_TIME,
+                                        'target' => "/ad/image/view/" . $get['opt2'],
+                                    ));
                                 }
                                 break;
                             case "replace":
@@ -148,8 +173,16 @@ class main
                                         $image_o->addImage($_FILES['image'], $ad['id']);
                                     }
                                     view_html::addMsg('success', MSG_IMG_REPLACE_SUCCESS);
+                                    $this->view->addData('redirect', array(
+                                        'time' => REDIRECT_WAIT_TIME,
+                                        'target' => "/ad/view/" . $ad['id'],
+                                    ));
                                 } else {
                                     view_html::addMsg('danger', MSG_IMG_REPLACE_FAIL);
+                                    $this->view->addData('redirect', array(
+                                        'time' => REDIRECT_WAIT_TIME,
+                                        'target' => "/ad/view/" . $ad['id'],
+                                    ));
                                     break;
                                 }
                                 break;
@@ -178,6 +211,10 @@ class main
                             } else {
                                 $this->registerUser($post['name'], $post['surname'], $post['mail'], $post['street'], $post['housenumber'], $post['city'], $post['postcode'], $post['password'], $post['password2']);
                                 view_html::addMsg("success", MSG_USER_REGISTER_SUCCESS);
+                                $this->view->addData('redirect', array(
+                                    'time' => REDIRECT_WAIT_TIME,
+                                    'target' => "/ad/list/",
+                                ));
                                 break;
                             }
                         }
@@ -188,15 +225,28 @@ class main
                             $this->deleteUser($get['opt1']);
                             session_destroy();
                             view_html::addMsg("success", MSG_USER_DELETE_SUCCESS);
+                            $this->view->addData('redirect', array(
+                                'time' => REDIRECT_WAIT_TIME,
+                                'target' => "/ad/list/",
+                            ));
                         } else {
                             $this->view->addData('site', 'delete');
                         }
                         break;
                     case "login":
                         $this->login($post);
+                        $this->view->addData('redirect', array(
+                            'time' => REDIRECT_WAIT_TIME,
+                            'target' => "/ad/list/",
+                        ));
                         break;
                     case "logout":
                         session_destroy();
+                        view_html::addMsg('success', MSG_USER_LOGOUT_SUCCESS);
+                        $this->view->addData('redirect', array(
+                            'time' => REDIRECT_WAIT_TIME,
+                            'target' => "/ad/list/",
+                        ));
                         break;
                 }
                 break;

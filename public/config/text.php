@@ -61,3 +61,6 @@ define("MSG_USER_REGISTER_FAIL", "Account konnte nicht erstellt werden");
 // User login
 define("MSG_USER_LOGIN_SUCCESS", "Erfolgreich eingeloggt!");
 define("MSG_USER_LOGIN_FAIL", "Fehler beim Einloggen bitte überprüfe deine Daten");
+
+// User logout
+define("MSG_USER_LOGOUT_SUCCESS", "Erfolgreich abgemeldet");

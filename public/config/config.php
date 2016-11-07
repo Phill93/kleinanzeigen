@@ -40,3 +40,5 @@ define('CHARSET', 'utf-8');
 
 define('THUMBNAIL_WIDTH', 250);
 define('THUMBNAIL_HEIGHT', 250);
+
+define('REDIRECT_WAIT_TIME', 3);

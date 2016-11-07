@@ -2,8 +2,9 @@
     <div class="panel-body">
 
         <img src="/{{ config.imgpath }}/full/img{{ image.id }}.png" class="img-responsive center-block">
-        <hr/>
+
         {% if owner == user.id %}
+            <hr/>
             <form action="/ad/image/replace/{{ image.id }}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <div class="form-group">
