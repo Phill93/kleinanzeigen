@@ -1,7 +1,8 @@
 <div class="panel panel-default">
     <div class="panel-body">
-
+        <a class="btn btn-default text-left pull-left img-back" href="/ad/view/{{ image.ad }}" role="button">Zurück</a>
         <img src="/{{ config.imgpath }}/full/img{{ image.id }}.png" class="img-responsive center-block">
+
 
         {% if owner == user.id %}
             <hr/>
