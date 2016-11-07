@@ -183,9 +183,6 @@ class main
                         }
                         $this->view->addData('site', 'register');
                         break;
-                    default:
-                    case "modify":
-                        break;
                     case "delete":
                         if($post['accept'] == "true") {
                             $this->deleteUser($get['opt1']);
