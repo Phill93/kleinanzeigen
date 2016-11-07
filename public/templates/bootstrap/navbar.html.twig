@@ -21,6 +21,13 @@
             {% else %}
                 {{ include("user/login.html.twig") }}
             {% endif %}
+            <form class="navbar-form navbar-right" action="/ad/search/" method="post">
+                {% if searchpattern %}
+                    <input type="text" name="pattern" class="form-control" placeholder="{{ searchpattern }}">
+                {% else %}
+                    <input type="text" name="pattern" class="form-control" placeholder="Suche">
+                {% endif %}
+            </form>
         </div><!--/.nav-collapse -->
     </div>
 </nav>

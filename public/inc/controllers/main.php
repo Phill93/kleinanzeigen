@@ -113,6 +113,11 @@ class main
                             view_html::addMsg('danger', MSG_FAILD_DELETE);
                         }
                         break;
+                    case "search":
+                        $pattern = $post['pattern'];
+                        $this->view->addData('ads', array_reverse($this->searchadList($pattern)));
+                        $this->view->addData('searchPattern', $pattern);
+                        break;
                     case "image":
                         switch ($get['opt1']) {
                             case "view":
@@ -239,6 +244,29 @@ class main
 
         if ($count != NULL) {
             $result = array_slice($result, 0, $count);
+        }
+        return $result;
+    }
+
+    /**
+     * @return array Assoc with all ads you want
+     */
+    private function searchadList($pattern)
+    {
+        $ads = new ad();
+        $image = new image(IMAGEPATH);
+        $list = $ads->search($pattern);
+
+        $result = array();
+        foreach ($list as $ad) {
+            $value = $ads->getad($ad['id']);
+            $value['user'] = $this->getUser($value['user']);
+            $value['images'] = $image->getImagebyad($value['id']);
+            array_push($result, $value);
+        }
+
+        if (count($result) < 1){
+            view_html::addMsg('warning', MSG_AD_SEARCH_NOT_FOUND);
         }
         return $result;
     }

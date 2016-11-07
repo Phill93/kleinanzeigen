@@ -46,6 +46,9 @@ define("MSG_AD_MODIFY_UNATHORIZED", "Für das verändern von Anzeigen musst du a
 // Anzeige anzeigen
 define("MSG_AD_VIEW_NOT_FOUND", "Anzeige wurde nicht gefunden!");
 
+// Anzeige suchen
+define("MSG_AD_SEARCH_NOT_FOUND", "Nichts gefunden!");
+
 // User löschen
 define("MSG_USER_DELETE_SUCCESS", "Account und alle zugehörigen Daten erfolgreich gelöscht!");
 

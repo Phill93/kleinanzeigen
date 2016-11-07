@@ -67,6 +67,36 @@ class ad
         return $array;
     }
 
+    /**
+     * @param string $pattern
+     * @return array
+     */
+    public function search($pattern)
+    {
+            $sql = 'SELECT ad.id, ad.title, category.id AS category
+                    FROM ad, category
+                    WHERE ad.content LIKE CONCAT(\'%\', :pattern ,\'%\')
+                    ORDER BY ad.id';
+
+        try {
+            $query = $this->database->prepare($sql);
+            $query->bindParam(":pattern", $pattern);
+
+            $query->execute();
+
+            while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
+                $array[$result['id']] = $result;
+            }
+
+            if (!isset($array)) {
+                $array = array();
+            }
+        } catch (PDOException $e) {
+            echo $e;
+        }
+        asort($array);
+        return $array;
+    }
 
     /**
      * @param int $id
